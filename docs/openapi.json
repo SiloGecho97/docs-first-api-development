@@ -1,0 +1,75 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Storyblok API Schema and Validation POC",
+      "description": "Storyblok API Schema and Validation POC.",
+      
+      "version": "1.0.1"
+    },
+    "host": "localhost:3000",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths":  {
+      "comments":
+        {
+          "get":
+            {
+              "summary": "Returns a list of stories for a given space",
+              "description": "A simple endpoint that returns a JSON response with a list of stories for the specified space.",
+              "parameters":
+                [
+                  {
+                    "name": "space_id",
+                    "in": "path",
+                    "required": true,
+                    "description": "The ID of the space",
+                    "schema": { "type": "string" }
+                  }
+                ],
+              "responses":
+                {
+                  "200":
+                    {
+                      "description": "A successful response",
+                      "content":
+                        {
+                          "application/json":
+                            {
+                              "schema":
+                                {
+                                  "type": "object",
+                                  "properties":
+                                    {
+                                      "stories":
+                                        {
+                                          "type": "array",
+                                          "items":
+                                            {
+                                              "type": "object",
+                                              "properties":
+                                                {
+                                                  "id": { "type": "string" },
+                                                  "title": { "type": "string" },
+                                                  "content":
+                                                    { "type": "string" }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
