@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Scalar::UI, at: "/docs"
   resources :comments
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
