@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Storyblok API Schema and Validation POC",
-    "description": "Storyblok API Schema and Validation POC.",
+    "title": "API Schema and Validation POC",
+    "description": "API Schema and Validation POC.",
 
     "version": "1.0.1"
   },
@@ -21,17 +21,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "comments": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "string" },
-                          "message": { "type": "string" }
-                        }
-                      }
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "number" },
+                      "message": { "type": "string" },
+                      "created_at": { "type": "string", "format": "date-time" },
+                      "updated_at": { "type": "string", "format": "date-time" }
                     }
                   }
                 }
@@ -50,9 +47,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "message": { "type": "string" }
-                },
-                "required": ["message"]
+                  "comment": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string" }
+                    },
+                    "required": ["message"]
+                  }
+                }
               }
             }
           }
@@ -65,8 +67,10 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": { "type": "string" },
-                    "message": { "type": "string" }
+                    "id": { "type": "number" },
+                    "message": { "type": "string" },
+                    "created_at": { "type": "string", "format": "date-time" },
+                    "updated_at": { "type": "string", "format": "date-time" }
                   }
                 }
               }
@@ -85,7 +89,7 @@
             "in": "path",
             "required": true,
             "description": "The ID of the comment",
-            "schema": { "type": "string" }
+            "schema": { "type": "number" }
           }
         ],
         "responses": {
@@ -96,7 +100,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": { "type": "string" },
+                    "id": { "type": "number" },
                     "message": { "type": "string" }
                   }
                 }
@@ -124,9 +128,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "message": { "type": "string" }
-                },
-                "required": ["message"]
+                  "comment": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string" }
+                    },
+                    "required": ["message"]
+                  }
+                }
               }
             }
           }
@@ -139,7 +148,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": { "type": "string" },
+                    "id": { "type": "number" },
                     "message": { "type": "string" }
                   }
                 }
