@@ -21,17 +21,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "comments": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "string" },
-                          "message": { "type": "string" }
-                        }
-                      }
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "number" },
+                      "message": { "type": "string" },
+                      "created_at": { "type": "string", "format": "date-time" },
+                      "updated_at": { "type": "string", "format": "date-time" }
                     }
                   }
                 }
@@ -50,9 +47,14 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "message": { "type": "string" }
-                },
-                "required": ["message"]
+                  "comment": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string" }
+                    },
+                    "required": ["message"]
+                  }
+                }
               }
             }
           }
@@ -65,7 +67,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "id": { "type": "string" },
+                    "id": { "type": "number" },
                     "message": { "type": "string" }
                   }
                 }
