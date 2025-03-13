@@ -1,75 +1,171 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "Storyblok API Schema and Validation POC",
-      "description": "Storyblok API Schema and Validation POC.",
-      
-      "version": "1.0.1"
-    },
-    "host": "localhost:3000",
-    "schemes": [
-      "http",
-      "https"
-    ],
-    "consumes": [
-      "application/json"
-    ],
-    "produces": [
-      "application/json"
-    ],
-    "paths":  {
-      "comments":
-        {
-          "get":
-            {
-              "summary": "Returns a list of stories for a given space",
-              "description": "A simple endpoint that returns a JSON response with a list of stories for the specified space.",
-              "parameters":
-                [
-                  {
-                    "name": "space_id",
-                    "in": "path",
-                    "required": true,
-                    "description": "The ID of the space",
-                    "schema": { "type": "string" }
-                  }
-                ],
-              "responses":
-                {
-                  "200":
-                    {
-                      "description": "A successful response",
-                      "content":
-                        {
-                          "application/json":
-                            {
-                              "schema":
-                                {
-                                  "type": "object",
-                                  "properties":
-                                    {
-                                      "stories":
-                                        {
-                                          "type": "array",
-                                          "items":
-                                            {
-                                              "type": "object",
-                                              "properties":
-                                                {
-                                                  "id": { "type": "string" },
-                                                  "title": { "type": "string" },
-                                                  "content":
-                                                    { "type": "string" }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Storyblok API Schema and Validation POC",
+    "description": "Storyblok API Schema and Validation POC.",
+
+    "version": "1.0.1"
+  },
+  "host": "localhost:3000",
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/comments": {
+      "get": {
+        "summary": "Returns a list of comments",
+        "description": "A simple endpoint that returns a JSON response with a list of comments.",
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "comments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "message": { "type": "string" }
                         }
+                      }
                     }
+                  }
                 }
+              }
             }
+          }
         }
+      },
+      "post": {
+        "summary": "Creates a new comment",
+        "description": "A simple endpoint that creates a new comment.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": { "type": "string" }
+                },
+                "required": ["message"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Comment created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/comments/{comment_id}": {
+      "get": {
+        "summary": "Returns a specific comment",
+        "description": "A simple endpoint that returns a JSON response with a specific comment.",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the comment",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Updates a specific comment",
+        "description": "A simple endpoint that updates a specific comment.",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the comment",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": { "type": "string" }
+                },
+                "required": ["message"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "message": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a specific comment",
+        "description": "A simple endpoint that deletes a specific comment.",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the comment",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Comment deleted successfully"
+          }
+        }
+      }
     }
   }
+}
