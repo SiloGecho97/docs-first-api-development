@@ -28,5 +28,13 @@ module PocDocsFirst
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.middleware.use Committee::Middleware::RequestValidation,
+      schema_path: "docs/openapi.json",
+      coerce_date_times: true,
+      params_key: "action_dispatch.request.request_parameters",
+      query_hash_key: "action_dispatch.request.query_parameters",
+      strict_reference_validation: true
+    config.middleware.use Committee::Middleware::ResponseValidation, schema_path: "docs/openapi.json", strict_reference_validation: true
   end
 end
