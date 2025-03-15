@@ -35,7 +35,6 @@ gem "thruster", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 gem "committee"
-gem "openapi_first"
 gem "scalar_ruby", "~> 1.1"
 
 group :development, :test do
