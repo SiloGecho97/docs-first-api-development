@@ -9,8 +9,7 @@ module OpenApiSchema
       @response_validator = Committee::Middleware::ResponseValidation.new(app, schema_path: "docs/openapi.json", strict_reference_validation: true)
     end
 
-    # Handles the middleware call to validate the schema if the "VALIDATE_SCHEMA" header is present.
-    # If the header is set to "1", it validates the response schema.
+    # Sets up the middleware to validate the response schema if the "VALIDATE_SCHEMA" header is present.
     #
     # @param env [Hash] The Rack environment hash.
     # @return [Array] The status, headers, and response.
@@ -25,11 +24,6 @@ module OpenApiSchema
     end
 
     private
-
-    # Checks if the "Validate-Schema" header is present in the environment hash.
-    #
-    # @param env [Hash] The Rack environment hash.
-    # @return [Boolean] True if the "Validate-Schema" header is present, false otherwise.
     def condition_for_response_validation?(env)
       env.key?("HTTP_VALIDATE_SCHEMA")
     end

@@ -7,8 +7,7 @@ module OpenApiSchema
     end
 
     # Handles the middleware call to validate the schema if the "VALIDATE_SCHEMA" header is present.
-    # If the header is set to "1", it validates the request schema.
-    # Otherwise, it continues the request-response cycle as usual.
+    # If the header VALIDATE_SCHEMA is exist, it validates the request schema.
     #
     # @param env [Hash] The Rack environment hash.
     # @return [Array] The status, headers, and response.

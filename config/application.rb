@@ -30,6 +30,8 @@ module PocDocsFirst
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Add the request and response validation middleware to the application.
+    # TODO: This can be changed later to add middleware in exact position e.g config.middleware.after Rack::Runtime, OpenApiSchema::RequestValidatorMiddleware
     config.middleware.use ::OpenApiSchema::RequestValidatorMiddleware
     config.middleware.use ::OpenApiSchema::ResponseValidatorMiddleware
   end
