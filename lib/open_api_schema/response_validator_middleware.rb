@@ -31,7 +31,8 @@ module OpenApiSchema
     # @param app [Object] The Rack application.
     def initialize(app)
       @app = app
-       error_handler = Proc.new do |error, env|
+
+      error_handler = Proc.new do |error, env|
         logger = Logger.new(Rails.root.join("log", "committee_validation.log"))
         logger.error("Committee Validation Error: #{error.message}")
       end
@@ -39,7 +40,7 @@ module OpenApiSchema
       @response_validator = Committee::Middleware::ResponseValidation.new(app, schema_path: "docs/openapi.json",  ignore_error: true, error_handler: error_handler)
     end
 
-    # Sets up the middleware to validate the response schema if the "VALIDATE_SCHEMA" header is present.
+    # Sets up the middleware to validate the response schema if the "VALIDATE_SCHEMA" header is present log the error.
     #
     # @param env [Hash] The Rack environment hash.
     # @return [Array] The status, headers, and response.
@@ -47,7 +48,7 @@ module OpenApiSchema
       status, headers, response = @app.call(env)
 
       if condition_for_response_validation?(env)
-        status, headers, response = @response_validator.call(env)
+        @response_validator.call(env)
       end
 
       [ status, headers, response ]
@@ -55,7 +56,7 @@ module OpenApiSchema
 
     private
     def condition_for_response_validation?(env)
-     true # env.key?("HTTP_VALIDATE_SCHEMA")
+      env.key?("HTTP_VALIDATE_SCHEMA")
     end
   end
 end

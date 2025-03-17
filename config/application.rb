@@ -31,8 +31,7 @@ module PocDocsFirst
     config.api_only = true
 
     # Add the request and response validation middleware to the application.
-    # TODO: This can be changed later to add middleware in exact position e.g config.middleware.after Rack::Runtime, OpenApiSchema::RequestValidatorMiddleware
-    config.middleware.use ::OpenApiSchema::RequestValidatorMiddleware
-    config.middleware.use ::OpenApiSchema::ResponseValidatorMiddleware
+    config.middleware.insert_after Rack::Runtime, ::OpenApiSchema::RequestValidatorMiddleware
+    config.middleware.insert_after Rack::Runtime, ::OpenApiSchema::ResponseValidatorMiddleware
   end
 end
