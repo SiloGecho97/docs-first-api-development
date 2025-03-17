@@ -5,7 +5,8 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-
+require_relative "../lib/open_api_schema/request_validator_middleware"
+require_relative "../lib/open_api_schema/response_validator_middleware"
 module PocDocsFirst
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -29,12 +30,9 @@ module PocDocsFirst
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    config.middleware.use Committee::Middleware::RequestValidation,
-      schema_path: "docs/openapi.json",
-      coerce_date_times: true,
-      params_key: "action_dispatch.request.request_parameters",
-      query_hash_key: "action_dispatch.request.query_parameters",
-      strict_reference_validation: true
-    config.middleware.use Committee::Middleware::ResponseValidation, schema_path: "docs/openapi.json", strict_reference_validation: true
+    # Add the request and response validation middleware to the application.
+    # TODO: This can be changed later to add middleware in exact position e.g config.middleware.after Rack::Runtime, OpenApiSchema::RequestValidatorMiddleware
+    config.middleware.use ::OpenApiSchema::RequestValidatorMiddleware
+    config.middleware.use ::OpenApiSchema::ResponseValidatorMiddleware
   end
 end
